@@ -268,7 +268,7 @@ for line in l_pileup:
 
 			else:
 				corr_base=ref_base	# for exceptions like '^)T'
-				print 'Exception 1: '+line
+				print('Exception 1: '+line)
 
 		# Cov=1 but insert, delete, start, or stop
 		else:
@@ -309,7 +309,7 @@ for line in l_pileup:
 
 			else:
 				corr_base=ref_base
-				print 'Exception 2: '+line
+				print('Exception 2: '+line)
 			
 	# Case of majority vote
 	else:
@@ -585,6 +585,6 @@ for ref in sorted(dict_ref.keys()):
 			seqcorr=re.sub(r'\+[\d]+','',seqcorr)
 			#---------------------------------------
 
-			print ref
-			print seqcorr
+			print(ref)
+			print(seqcorr)
 	#-----------------------------------------
