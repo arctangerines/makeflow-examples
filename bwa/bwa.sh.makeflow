@@ -1,0 +1,44 @@
+all: ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa query.fastq.0 query.fastq.1 query.fastq.2 query.fastq.3 query.fastq.4 query.fastq.5 query.fastq.6 query.fastq.7 query.fastq.8 query.fastq.9 query.fastq.9.err query.fastq.9.sam query.fastq.8.err query.fastq.8.sam query.fastq.7.err query.fastq.7.sam query.fastq.6.err query.fastq.6.sam query.fastq.5.err query.fastq.5.sam query.fastq.4.err query.fastq.4.sam query.fastq.3.err query.fastq.3.sam query.fastq.2.err query.fastq.2.sam query.fastq.1.err query.fastq.1.sam query.fastq.0.err query.fastq.0.sam cat_18018 query.sam
+
+ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa : bwa ref.fastq
+	 ./bwa index ref.fastq
+
+query.fastq.0 query.fastq.1 query.fastq.2 query.fastq.3 query.fastq.4 query.fastq.5 query.fastq.6 query.fastq.7 query.fastq.8 query.fastq.9 : fastq_reduce query.fastq
+	 /usr/bin/perl fastq_reduce query.fastq 100
+
+query.fastq.9.err query.fastq.9.sam : bwa query.fastq.9 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.9
+
+query.fastq.8.err query.fastq.8.sam : bwa query.fastq.8 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.8
+
+query.fastq.7.err query.fastq.7.sam : bwa query.fastq.7 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.7
+
+query.fastq.6.err query.fastq.6.sam : bwa query.fastq.6 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.6
+
+query.fastq.5.err query.fastq.5.sam : bwa query.fastq.5 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.5
+
+query.fastq.4.err query.fastq.4.sam : bwa query.fastq.4 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.4
+
+query.fastq.3.err query.fastq.3.sam : bwa query.fastq.3 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.3
+
+query.fastq.2.err query.fastq.2.sam : bwa query.fastq.2 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.2
+
+query.fastq.1.err query.fastq.1.sam : bwa query.fastq.1 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.1
+
+query.fastq.0.err query.fastq.0.sam : bwa query.fastq.0 ref.fastq.amb ref.fastq.ann ref.fastq.bwt ref.fastq.pac ref.fastq.sa
+	 ./bwa mem -v 0 ref.fastq query.fastq.0
+
+cat_18018 : query.fastq.0.err query.fastq.1.err query.fastq.2.err query.fastq.3.err query.fastq.4.err query.fastq.5.err query.fastq.6.err query.fastq.7.err query.fastq.8.err query.fastq.9.err
+	/usr/bin/cat query.fastq.0.err query.fastq.1.err query.fastq.2.err query.fastq.3.err query.fastq.4.err query.fastq.5.err query.fastq.6.err query.fastq.7.err query.fastq.8.err query.fastq.9.err
+
+query.sam : cat_bwa query.fastq.0.sam query.fastq.1.sam query.fastq.2.sam query.fastq.3.sam query.fastq.4.sam query.fastq.5.sam query.fastq.6.sam query.fastq.7.sam query.fastq.8.sam query.fastq.9.sam
+	 /usr/bin/perl cat_bwa query.sam query.fastq.0.sam query.fastq.1.sam query.fastq.2.sam query.fastq.3.sam query.fastq.4.sam query.fastq.5.sam query.fastq.6.sam query.fastq.7.sam query.fastq.8.sam query.fastq.9.sam
+
